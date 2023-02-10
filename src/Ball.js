@@ -6,25 +6,27 @@ import {
     metalHardDropSound
 } from '../src/audio.js'
 
-function Ball() {
-    let self = this
+class Ball {
+    constructor() {
+        let self = this
 
-    this.width = 30
-    this.height = 30
+        this.width = 30
+        this.height = 30
 
-    this.x = 200
-    this.y = 350
+        this.x = 200
+        this.y = 350
 
-    this.ballTop = this.y
-    this.ballBottom = this.y + this.height
-    this.ballLeft = this.x
-    this.ballRight = this.x + this.width
+        this.ballTop = this.y
+        this.ballBottom = this.y + this.height
+        this.ballLeft = this.x
+        this.ballRight = this.x + this.width
 
-    this.dir = '' // direccion
-    this.step = 5    // velocidad
-    this.html = null;
+        this.dir = '' // direccion
+        this.step = 5    // velocidad
+        this.html = null;
+    }
 
-    this.createBall = function (width, height) {
+    createBall(width, height) {
         this.html = document.createElement('div')
 
         this.html.classList.add('ball')
@@ -49,7 +51,7 @@ function Ball() {
         }
     }
 
-    this.resetBall = function (width, height) {
+    resetBall(width, height) {
         this.x = width / 2 //200
         this.y = height / 2 //350
         this.html.style.left = `${this.x - this.height / 2}px`
@@ -66,8 +68,7 @@ function Ball() {
         }
     }
 
-    this.move = function () {
-
+    move() {
         switch (self.dir) {
             case 'UR':
                 self.x += self.step
@@ -115,15 +116,15 @@ function Ball() {
         self.ballBottom = self.y + self.height / 2
     }
 
-    this.speed = function (speed) {
+    speed(speed) {
         this.step = speed
     }
 
-    this.changeDir = function (dir) {
+    changeDir(dir) {
         this.dir = dir
     }
 
-    this.borderCollision = function (board, scoreBoard) {
+    borderCollision(board, scoreBoard) {
         let borderRight = board.width
         let borderLeft = 0
         let borderTop = 0
@@ -174,7 +175,7 @@ function Ball() {
         }
     }
 
-    this.playerCollision = function (player) {
+    playerCollision(player) {
 
         let paddleRight = player.left + player.width
         let paddleLeft = player.left
@@ -221,7 +222,7 @@ function Ball() {
         }
     }
 
-    this.sound = function () {
+    sound() {
         let rand = Math.ceil(Math.random() * 2)
 
         console.log(rand)

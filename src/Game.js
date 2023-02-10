@@ -10,36 +10,38 @@ import {
     popSound
 } from '../src/audio.js'
 
-function Game() {
-    let self = this
+class Game {
+    constructor() {
+        let self = this
 
-    this.board = new Board()
+        this.board = new Board()
 
-    this.btnStart = new BtnStart()
-    this.btnReset = new BtnReset()
-    this.btnPause = new BtnPause()
+        this.btnStart = new BtnStart()
+        this.btnReset = new BtnReset()
+        this.btnPause = new BtnPause()
 
-    this.player = new Paddle()
-    this.enemy = new Paddle()
+        this.player = new Paddle()
+        this.enemy = new Paddle()
 
-    this.scoreBoard = new ScoreBoard()
+        this.scoreBoard = new ScoreBoard()
 
-    this.ball = new Ball()
+        this.ball = new Ball()
 
-    this.timerId = null;
-    this.timerIdSetUp = null;
-    this.timerIdEnemy = null
+        this.timerId = null;
+        this.timerIdSetUp = null;
+        this.timerIdEnemy = null
 
-    this.backgroundAudio = null;
+        this.backgroundAudio = null;
 
-    this.pause = false
+        this.pause = false
 
-    this.world = null;
+        this.world = null;
+    }
 
-    this.setUpBoard = function () {
+    setUpBoard() {
         this.world = document.querySelector('body')
 
-        this.board.createBoard()
+        this.board.createBoard
         this.btnStart.createStart(this.board.width, this.board.height)
         this.btnReset.createReset(this.board.width, this.board.height)
         this.btnPause.createPause(this.board.width, this.board.height)
@@ -66,7 +68,7 @@ function Game() {
         this.world.appendChild(this.board.html)
     }
 
-    this.mouseHandler = function (e) {
+    mouseHandler(e) {
         let playerRight = e.clientX + (self.player.width / 2)
         let playerLeft = e.clientX - (self.player.width / 2)
         let playerTop = e.clientY - (self.player.height / 2)
@@ -78,12 +80,12 @@ function Game() {
         let borderDown = (window.innerHeight / 2) + (self.board.height / 2)
 
         if (playerRight < borderRight && playerLeft > borderLeft) {
-            self.player.updateMove((e.clientX - (window.innerWidth / 2) + (self.board.width / 2) - (self.player.width / 2)))
+            self.player.updateMove = (e.clientX - (window.innerWidth / 2) + (self.board.width / 2) - (self.player.width / 2))
         }
 
     }
 
-    this.enemyHandler = function () {
+    enemyHandler() {
         let enemyRight = this.enemy.left + this.enemy.width //this.ball.x + this.ball.width / 2 + (this.enemy.width / 2)
         let enemyLeft = this.enemy.left //this.ball.x + this.ball.width / 2 - (this.enemy.width / 2)
 
@@ -93,19 +95,19 @@ function Game() {
         if (enemyLeft < borderLeft || enemyRight > borderRight) {
             this.enemy.dir *= -1
         }
-        this.enemy.updateMove(20)
+        this.enemy.updateMove = 20
 
     }
 
-    this.bounceHandler = function () {
+    bounceHandler() {
         if (this.ball.borderCollision(this.board, this.scoreBoard)) {
-            this.pauseGame()
+            this.pauseGame
         }
         this.ball.playerCollision(this.player)
         this.ball.playerCollision(this.enemy)
     }
 
-    this.startGame = function () {
+    startGame() {
         self.timerIdSetUp = setTimeout(function () {
             self.btnStart.html.style.top = '400px'
             self.btnStart.html.style.display = 'none'
@@ -133,14 +135,14 @@ function Game() {
             backgroundMusic.play()
 
             self.timerId = setInterval(function () {
-                self.ball.move()
-                self.bounceHandler()
-                self.enemyHandler()
+                self.ball.move
+                self.bounceHandler
+                self.enemyHandler
             }, 35)
         }, 0.4)
     }
 
-    this.pauseGame = function () {
+    pauseGame() {
         clearInterval(self.timerId)
         clearInterval(self.timerIdEnemy)
         clearInterval(self.timerIdFaster)
@@ -162,10 +164,10 @@ function Game() {
 
     }
 
-    this.pauseGameBtn = function () {
+    pauseGameBtn() {
         if (self.pause) {
             self.pause = false
-            self.startGame()
+            self.startGame
         } else {
             self.pause = true
 
@@ -182,7 +184,7 @@ function Game() {
 
     }
 
-    this.resetGame = function () {
+    resetGame() {
         clearInterval(self.timerId)
         clearInterval(self.timerIdEnemy)
         clearInterval(self.timerIdFaster)
@@ -190,7 +192,7 @@ function Game() {
         self.pause = false
 
         self.world.removeChild(self.board.html)
-        self.setUpBoard()
+        self.setUpBoard
 
         backgroundMusic.load()
 
