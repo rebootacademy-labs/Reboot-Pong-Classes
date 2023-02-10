@@ -116,11 +116,11 @@ class Ball {
         self.ballBottom = self.y + self.height / 2
     }
 
-    speed(speed) {
+    set speed(speed) {
         this.step = speed
     }
 
-    changeDir(dir) {
+    set changeDir(dir) {
         this.dir = dir
     }
 
@@ -131,45 +131,45 @@ class Ball {
         let borderBottom = board.height
 
         if (self.ballRight >= borderRight) {
-            self.sound()
+            self.sound
             if (self.dir === 'UR') {
-                self.changeDir('UL')
+                self.changeDir = 'UL'
             } else if (self.dir === 'DR') {
-                self.changeDir('DL')
+                self.changeDir = 'DL'
             }
         }
 
         if (self.ballLeft <= borderLeft) {
-            self.sound()
+            self.sound
             if (self.dir === 'UL') {
-                self.changeDir('UR')
+                self.changeDir = 'UR'
             } else if (self.dir === 'DL') {
-                self.changeDir('DR')
+                self.changeDir = 'DR'
             }
         }
 
         if (self.ballTop <= borderTop) {
-            scoreBoard.updateScores('player')
+            scoreBoard.updateScores = 'player'
             powerUpSound.play()
             return true
             /******** Future Feature? ********/
             if (self.dir === 'UR') {
-                self.changeDir('DR')
+                self.changeDir = 'DR'
             } else if (self.dir === 'UL') {
-                self.changeDir('DL')
+                self.changeDir = 'DL'
             }
             /*********************************/
         }
 
         if (self.ballBottom >= borderBottom) {
-            scoreBoard.updateScores('enemy')
+            scoreBoard.updateScores = 'enemy'
             metalHardDropSound.play()
             return true
             /******** Future Feature? ********/
             if (self.dir === 'DL') {
-                self.changeDir('UL')
+                self.changeDir = 'UL'
             } else if (self.dir === 'DR') {
-                self.changeDir('UR')
+                self.changeDir = 'UR'
             }
             /*********************************/
         }
