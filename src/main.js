@@ -1,6 +1,6 @@
 import { Game } from './Game.js'
 
 let game = new Game()
-game.setUpBoard
+game.setUpBoard()
 // game.startGame()
-console.log(game)
+// console.log(game.world)

@@ -8,7 +8,7 @@ class BtnStart {
         this.left = 0
         this.top = 0
 
-        this.html = null
+        let html = null
     }
 
     createStart(width, height) {

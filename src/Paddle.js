@@ -40,12 +40,12 @@ class Paddle {
 
     set updateMove(left) {
         switch (this.roll) {
-            case 'player': self.left = left; break
+            case 'player': this.left = left; break
             case 'enemy':
-                self.left += left * self.dir
+                this.left += left * this.dir
         }
 
-        self.html.style.left = self.left + 'px'
+        this.html.style.left = this.left + 'px'
     }
 
     resetPaddle(width, height) {

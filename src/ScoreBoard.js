@@ -47,12 +47,13 @@ class ScoreBoard {
     }
 
     set updateScores(who) {
+        // console.log(this)
         switch (who) {
-            case 'player': self.playerPoints++; break
-            case 'enemy': self.enemyPoints++; break
+            case 'player': this.playerPoints++; break
+            case 'enemy': this.enemyPoints++; break
         }
-        self.spanPlayer.innerText = `${self.playerPoints}`
-        self.spanEnemy.innerText = `${self.enemyPoints}`
+        this.spanPlayer.innerText = `${this.playerPoints}`
+        this.spanEnemy.innerText = `${this.enemyPoints}`
     }
 }
 

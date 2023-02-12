@@ -69,10 +69,10 @@ class Ball {
     }
 
     move() {
-        switch (self.dir) {
+        switch (this.dir) {
             case 'UR':
-                self.x += self.step
-                self.y -= self.step
+                this.x += this.step
+                this.y -= this.step
                 this.html.classList.add('glowingUR')
                 this.html.classList.remove('glowingDL')
                 this.html.classList.remove('glowingDR')
@@ -80,8 +80,8 @@ class Ball {
                 break
 
             case 'UL':
-                self.x -= self.step
-                self.y -= self.step
+                this.x -= this.step
+                this.y -= this.step
                 this.html.classList.add('glowingUL')
                 this.html.classList.remove('glowingDL')
                 this.html.classList.remove('glowingDR')
@@ -89,8 +89,8 @@ class Ball {
                 break
 
             case 'DR':
-                self.x += self.step
-                self.y += self.step
+                this.x += this.step
+                this.y += this.step
                 this.html.classList.add('glowingDR')
                 this.html.classList.remove('glowingDL')
                 this.html.classList.remove('glowingUL')
@@ -98,8 +98,8 @@ class Ball {
                 break
 
             case 'DL':
-                self.x -= self.step
-                self.y += self.step
+                this.x -= this.step
+                this.y += this.step
                 this.html.classList.add('glowingDL')
                 this.html.classList.remove('glowingDR')
                 this.html.classList.remove('glowingUL')
@@ -107,13 +107,13 @@ class Ball {
                 break
 
         }
-        self.html.style.left = `${self.x - self.width / 2}px`
-        self.html.style.top = `${self.y - self.height / 2}px`
+        this.html.style.left = `${this.x - this.width / 2}px`
+        this.html.style.top = `${this.y - this.height / 2}px`
 
-        self.ballRight = self.x + self.width / 2
-        self.ballLeft = self.x - self.width / 2
-        self.ballTop = self.y - self.height / 2
-        self.ballBottom = self.y + self.height / 2
+        this.ballRight = this.x + this.width / 2
+        this.ballLeft = this.x - this.width / 2
+        this.ballTop = this.y - this.height / 2
+        this.ballBottom = this.y + this.height / 2
     }
 
     set speed(speed) {
@@ -129,49 +129,53 @@ class Ball {
         let borderLeft = 0
         let borderTop = 0
         let borderBottom = board.height
+        
+// console.log(scoreBoard)
 
-        if (self.ballRight >= borderRight) {
-            self.sound
-            if (self.dir === 'UR') {
-                self.changeDir = 'UL'
-            } else if (self.dir === 'DR') {
-                self.changeDir = 'DL'
+        if (this.ballRight >= borderRight) {
+            this.sound()
+            if (this.dir === 'UR') {
+                this.changeDir = 'UL'
+            } else if (this.dir === 'DR') {
+                this.changeDir = 'DL'
             }
         }
 
-        if (self.ballLeft <= borderLeft) {
-            self.sound
-            if (self.dir === 'UL') {
-                self.changeDir = 'UR'
-            } else if (self.dir === 'DL') {
-                self.changeDir = 'DR'
+        if (this.ballLeft <= borderLeft) {
+            this.sound()
+            if (this.dir === 'UL') {
+                this.changeDir = 'UR'
+            } else if (this.dir === 'DL') {
+                this.changeDir = 'DR'
             }
         }
 
-        if (self.ballTop <= borderTop) {
+        if (this.ballTop <= borderTop) {
             scoreBoard.updateScores = 'player'
             powerUpSound.play()
-            return true
+            console.log("COLISION BORDE SUPERIOR")
             /******** Future Feature? ********/
-            if (self.dir === 'UR') {
-                self.changeDir = 'DR'
-            } else if (self.dir === 'UL') {
-                self.changeDir = 'DL'
+            if (this.dir === 'UR') {
+                this.changeDir = 'DR'
+            } else if (this.dir === 'UL') {
+                this.changeDir = 'DL'
             }
             /*********************************/
+            return true
         }
 
-        if (self.ballBottom >= borderBottom) {
+        if (this.ballBottom >= borderBottom) {
             scoreBoard.updateScores = 'enemy'
             metalHardDropSound.play()
-            return true
+            console.log("COLISION BORDE INFERIOR")
             /******** Future Feature? ********/
-            if (self.dir === 'DL') {
-                self.changeDir = 'UL'
-            } else if (self.dir === 'DR') {
-                self.changeDir = 'UR'
+            if (this.dir === 'DL') {
+                this.changeDir = 'UL'
+            } else if (this.dir === 'DR') {
+                this.changeDir = 'UR'
             }
             /*********************************/
+            return true
         }
     }
 
@@ -181,40 +185,40 @@ class Ball {
         let paddleLeft = player.left
         let paddleTop = player.top
         let paddleBottom = player.top + player.height
-
+// console.log(player)
         switch (player.roll) {
             case 'player':
-                if (self.ballBottom >= paddleTop &&
-                    self.ballRight >= paddleLeft &&
-                    self.ballLeft < paddleRight &&
-                    self.ballTop < paddleTop) {
+                if (this.ballBottom >= paddleTop &&
+                    this.ballRight >= paddleLeft &&
+                    this.ballLeft < paddleRight &&
+                    this.ballTop < paddleTop) {
                     console.log("COLISION PLAYER")
                     popSound.play()
-                    switch (self.dir) {
+                    switch (this.dir) {
                         case 'DL':
-                            self.dir = 'UL'
+                            this.dir = 'UL'
                             break
                         case 'DR':
-                            self.dir = 'UR'
+                            this.dir = 'UR'
                             break
                     }
                 };
                 break
 
             case 'enemy':
-                if (self.ballBottom >= paddleTop &&
-                    self.ballRight >= paddleLeft &&
-                    self.ballLeft < paddleRight &&
-                    self.ballTop < paddleBottom) {
+                if (this.ballBottom >= paddleTop &&
+                    this.ballRight >= paddleLeft &&
+                    this.ballLeft < paddleRight &&
+                    this.ballTop < paddleBottom) {
                     console.log("COLISION ENEMY")
                     popSound.play()
 
-                    switch (self.dir) {
+                    switch (this.dir) {
                         case 'UL':
-                            self.dir = 'DL'
+                            this.dir = 'DL'
                             break
                         case 'UR':
-                            self.dir = 'DR'
+                            this.dir = 'DR'
                             break
                     }
                 };
@@ -224,8 +228,6 @@ class Ball {
 
     sound() {
         let rand = Math.ceil(Math.random() * 2)
-
-        console.log(rand)
 
         switch (rand) {
             case 1: zippoSound.play(); break
